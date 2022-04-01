@@ -1,5 +1,7 @@
 package com.devsuperior.dsclient.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +22,13 @@ public class ClientService {
 	public Page<ClientDTO> findAllPaged(PageRequest pageRequest){
 		Page<Client> page = repository.findAll(pageRequest);
 		return page.map(x -> new ClientDTO(x));
+	}
+
+	@Transactional(readOnly = true)
+	public ClientDTO findById(Long id) {
+		Optional<Client> obj = repository.findById(id);
+		Client entity = obj.get();
+		return new ClientDTO(entity);
 	}
 	
 }
