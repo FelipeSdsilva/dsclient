@@ -18,9 +18,9 @@ public class ClientService {
 
 	@Autowired
 	private ClientRepository repository;
-	
+
 	@Transactional(readOnly = true)
-	public Page<ClientDTO> findAllPaged(PageRequest pageRequest){
+	public Page<ClientDTO> findAllPaged(PageRequest pageRequest) {
 		Page<Client> page = repository.findAll(pageRequest);
 		return page.map(x -> new ClientDTO(x));
 	}
@@ -31,13 +31,20 @@ public class ClientService {
 		Client entity = obj.orElseThrow(() -> new ResourceNotFoundExecepiton("Id not Found"));
 		return new ClientDTO(entity);
 	}
-	
+
+	public ClientDTO insert(ClientDTO dto) {
+		Client entity = new Client();
+		copyDtoToEntity(dto, entity);
+		entity = repository.save(entity);
+		return new ClientDTO(entity);
+	}
+
 	private void copyDtoToEntity(ClientDTO dto, Client entity) {
 		entity.setName(dto.getName());
 		entity.setCpf(dto.getCpf());
 		entity.setIncome(dto.getIncome());
 		entity.setBirthDate(dto.getBirthDate());
 		entity.setChildren(dto.getChildren());
-		
+
 	}
 }
