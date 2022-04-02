@@ -1,9 +1,9 @@
 package com.devsuperior.dsclient.services.excepitons;
 
-public class ResourceNotFoundExecepiton extends RuntimeException {
+public class ResourceNotFoundException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
-	public ResourceNotFoundExecepiton(String msg) {
+	public ResourceNotFoundException(String msg) {
 		super(msg);
 	}
 
